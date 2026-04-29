@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { CardDto } from 'src/card/dto/card.dto';
 import type { ICardValidationResponse } from 'src/card/interfaces/card-validation-response.interface';
 import { CardValidationService } from 'src/card/services/card-validation/card-validation.service';
+import { CardDto } from '../../dto/card.dto';
 
 @Controller('card')
 export class CardController {
