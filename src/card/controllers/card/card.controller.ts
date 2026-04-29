@@ -6,13 +6,12 @@ import { CardValidationService } from 'src/card/services/card-validation/card-va
 @Controller('card')
 export class CardController {
 
-    constructor(private readonly cardValidationService: CardValidationService) {}  
+  constructor(private readonly cardValidationService: CardValidationService) {}  
 
   @Post('validate')
   @HttpCode(HttpStatus.OK)
-  validate(@Body() dto: CardDto): ICardValidationResponse {
-    const validationResult = this.cardValidationService.validate(dto.cardNumber);
-
+  async validate(@Body() request: CardDto): Promise<ICardValidationResponse> {
+    const validationResult = await this.cardValidationService.validate(request.cardNumber);
     return {
       ...validationResult,
     };

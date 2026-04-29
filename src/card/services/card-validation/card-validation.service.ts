@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { BRAND_PATTERNS } from 'src/card/constants/brand-patterns';
 import { CARD_CONSTRAINTS } from 'src/card/constants/card-constraints';
 import { CardBrand } from 'src/card/enums/card-brand.enum';
@@ -6,14 +8,23 @@ import { ICardValidationResponse } from 'src/card/interfaces/card-validation-res
 
 @Injectable()
 export class CardValidationService {
-    public validate(rawCardNumber: string): ICardValidationResponse {
+
+    constructor(@InjectModel('Card') private readonly cardModel: Model<any>) {}
+    
+    public async validate(rawCardNumber: string): Promise<ICardValidationResponse> {
         const { SANITIZATION_PATTERN } = BRAND_PATTERNS;
         const sanitized = rawCardNumber.replace(SANITIZATION_PATTERN, '');
-        return {
+       const result = {
         isValid: this.verifyChecksum(sanitized),
         brand: this.detectBrand(sanitized),
         formattedCard: this.maskCardNumber(sanitized),
         };
+
+        await this.cardModel.create({
+           cardNumber: result.formattedCard,
+        });
+
+        return result;
     }
 
     private verifyChecksum(digits: string): boolean {
@@ -35,7 +46,7 @@ export class CardValidationService {
 
         runningTotal += currentDigit;
         applyWeight = !applyWeight;
-        
+
         }
         return runningTotal % CHECK_BASE === 0;
     }

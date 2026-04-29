@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CardValidationService } from './card/card-validation/card-validation.service';
 import { CardModule } from './card/card.module';
+import keys from './config/keys';
 
 @Module({
-  imports: [CardModule],
+  imports: [CardModule, MongooseModule.forRoot(keys.mongoURI)],
   controllers: [AppController],
-  providers: [AppService, CardValidationService],
+  providers: [AppService],
 })
 export class AppModule {}
