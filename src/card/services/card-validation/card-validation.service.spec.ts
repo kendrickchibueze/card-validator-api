@@ -56,10 +56,10 @@ describe('CardValidationService', () => {
     });
 
     it('should return brand: Unknown if the prefix is unrecognized', async () => {
-      const universal = '9999 9999 9999 9999';
-      const result = await service.validate(universal);
+      const unknown = '9999 9999 9999 9999';
+      const result = await service.validate(unknown);
 
-      expect(result.brand).toBe(CardBrand.UNIVERSAL);
+      expect(result.brand).toBe(CardBrand.UNKNOWN);
       expect(result.isValid).toBe(false);
     });
   });

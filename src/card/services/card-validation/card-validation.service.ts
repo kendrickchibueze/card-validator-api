@@ -55,7 +55,7 @@ export class CardValidationService {
         if (BRAND_PATTERNS.VISA.test(digits)) return CardBrand.VISA;
         if (BRAND_PATTERNS.MASTERCARD.test(digits)) return CardBrand.MASTERCARD;
         if (BRAND_PATTERNS.AMEX.test(digits)) return CardBrand.AMEX;   
-        return CardBrand.UNIVERSAL;
+        return CardBrand.UNKNOWN;
     }
 
     private maskCardNumber(digits: string): string {

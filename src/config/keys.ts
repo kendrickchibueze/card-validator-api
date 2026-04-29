@@ -1,3 +1,3 @@
 export default {
-  mongoURI: 'YOUR mongoURI'
+  mongoURI: 'YOUR_MONGO_URI',
 };
