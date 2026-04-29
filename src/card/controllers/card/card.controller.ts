@@ -1,4 +1,20 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { CardDto } from 'src/card/dto/card.dto';
+import type { ICardValidationResponse } from 'src/card/interfaces/card-validation-response.interface';
+import { CardValidationService } from 'src/card/services/card-validation/card-validation.service';
 
 @Controller('card')
-export class CardController {}
+export class CardController {
+
+    constructor(private readonly cardValidationService: CardValidationService) {}  
+
+  @Post('validate')
+  @HttpCode(HttpStatus.OK)
+  validate(@Body() dto: CardDto): ICardValidationResponse {
+    const validationResult = this.cardValidationService.validate(dto.cardNumber);
+
+    return {
+      ...validationResult,
+    };
+  }
+}
