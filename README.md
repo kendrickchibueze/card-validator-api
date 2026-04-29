@@ -66,7 +66,7 @@ The API will be live at:
 
 Endpoint:
 ```bash
-POST /api/v1/cards/validate
+POST /card/validate
 ```
 
 Request Body:
