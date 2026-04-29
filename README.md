@@ -36,7 +36,7 @@ A robust, enterprise-grade **Card Validation API** built with **NestJS**. This p
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/card-validation-api.git
+git clone https://github.com/kendrickchibueze/card-validation-api.git
 cd card-validation-api
 ```
 ###  2. Install dependencies
